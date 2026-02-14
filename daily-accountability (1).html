@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Command Center</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Oswald:wght@600;700&display=swap');
+        
+        :root {
+            --primary: #ff6b35;
+            --secondary: #f7931e;
+            --success: #4ecdc4;
+            --danger: #e63946;
+            --dark: #1a1a2e;
+            --darker: #0f0f1e;
+            --light: #eaeaea;
+            --accent: #00d9ff;
+            --warning: #ffd93d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background Grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 107, 53, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 107, 53, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 107, 53, 0.5)); }
+            50% { filter: drop-shadow(0 0 30px rgba(255, 107, 53, 0.8)); }
+        }
+        
+        .date-display {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Stats Dashboard */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .stat-card:hover::before {
+            left: 100%;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-value {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .stat-sublabel {
+            font-size: 0.8rem;
+            color: var(--light);
+            opacity: 0.7;
+            margin-top: 0.5rem;
+        }
+        
+        /* Progress Ring */
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto;
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        
+        /* Timeline Section */
+        .timeline-section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .time-block {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+        }
+        
+        /* Checklist Items */
+        .checklist {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .checklist-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .checklist-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
+        }
+        
+        .checklist-item.completed {
+            opacity: 0.6;
+            background: rgba(78, 205, 196, 0.1);
+            border-color: var(--success);
+        }
+        
+        .checklist-item.completed::before {
+            transform: scaleY(1);
+            background: var(--success);
+        }
+        
+        .checkbox {
+            width: 28px;
+            height: 28px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item.completed .checkbox {
+            background: var(--success);
+            border-color: var(--success);
+        }
+        
+        .checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: white;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+        
+        .checklist-item.completed .checkbox::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .item-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .item-time {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        /* Emergency Button */
+        .emergency-section {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+        
+        .emergency-btn {
+            background: linear-gradient(135deg, var(--danger), #c41e3a);
+            color: white;
+            border: none;
+            padding: 1.5rem 2rem;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(230, 57, 70, 0.5);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .emergency-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(230, 57, 70, 0.7);
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: var(--dark);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            animation: modalSlide 0.3s ease;
+        }
+        
+        @keyframes modalSlide {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--danger);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        .reflection-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--light);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            min-height: 150px;
+            resize: vertical;
+            margin-bottom: 1.5rem;
+        }
+        
+        .reflection-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: var(--success);
+            color: var(--dark);
+        }
+        
+        .btn-primary:hover {
+            background: #3dbdb6;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Motivational Quotes */
+        .quote-section {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(0, 217, 255, 0.1));
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+        
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--light);
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        .quote-author {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 700;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-title {
+                font-size: 1.5rem;
+            }
+            
+            .emergency-section {
+                bottom: 1rem;
+                right: 1rem;
+            }
+            
+            .emergency-btn {
+                padding: 1rem 1.5rem;
+                font-size: 1rem;
+            }
+        }
+        
+        /* Chart Container */
+        .chart-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .chart-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        
+        #weekChart {
+            max-width: 100%;
+            height: 300px;
+        }
+        
+        .streak-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(78, 205, 196, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-top: 0.5rem;
+        }
+        
+        .streak-icon {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Daily Command Center</h1>
+            <div class="date-display" id="currentDate"></div>
+            <div style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--success);" id="syncStatus">
+                ☁️ Cloud sync enabled
+            </div>
+        </header>
+        
+        <!-- Stats Dashboard -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Clean Streak</div>
+                <div class="stat-value" id="cleanStreak">0</div>
+                <div class="stat-sublabel">Consecutive Days</div>
+                <div class="streak-indicator">
+                    <span class="streak-icon">🔥</span>
+                    <span>Keep going!</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Today's Progress</div>
+                <div class="stat-value"><span id="completedTasks">0</span>/<span id="totalTasks">0</span></div>
+                <div class="stat-sublabel">Tasks Completed</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Weekly Score</div>
+                <div class="stat-value" id="weeklyScore">0%</div>
+                <div class="stat-sublabel">7-Day Average</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">Current Time</div>
+                <div class="stat-value" id="currentTime" style="font-size: 2.5rem;"></div>
+                <div class="stat-sublabel" id="nextBlock"></div>
+            </div>
+        </div>
+        
+        <!-- Motivational Quote -->
+        <div class="quote-section" id="quoteSection">
+            <div class="quote-text" id="quoteText"></div>
+            <div class="quote-author" id="quoteAuthor"></div>
+        </div>
+        
+        <!-- Weekly Progress Chart -->
+        <div class="chart-container">
+            <div class="chart-title">7-Day Completion Trend</div>
+            <canvas id="weekChart"></canvas>
+        </div>
+        
+        <!-- Morning Routine -->
+        <div class="timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">🌅 Morning Routine</h2>
+                <span class="time-block">7:00 - 9:00 AM</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item" data-task="morning-1">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Wake up & make bed immediately</div>
+                    <div class="item-time">7:00</div>
+                </div>
+                <div class="checklist-item" data-task="morning-2">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Cold shower (5 minutes)</div>
+                    <div class="item-time">7:05</div>
+                </div>
+                <div class="checklist-item" data-task="morning-3">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Meditation/mindfulness (10 minutes)</div>
+                    <div class="item-time">7:15</div>
+                </div>
+                <div class="checklist-item" data-task="morning-4">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Exercise/workout (30 minutes)</div>
+                    <div class="item-time">7:30</div>
+                </div>
+                <div class="checklist-item" data-task="morning-5">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Healthy breakfast</div>
+                    <div class="item-time">8:00</div>
+                </div>
+                <div class="checklist-item" data-task="morning-6">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Review daily goals & priorities</div>
+                    <div class="item-time">8:30</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Midday Routine -->
+        <div class="timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">☀️ Midday Focus</h2>
+                <span class="time-block">9:00 AM - 5:00 PM</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item" data-task="midday-1">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Deep work session #1 (90 minutes)</div>
+                    <div class="item-time">9:00</div>
+                </div>
+                <div class="checklist-item" data-task="midday-2">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Healthy snack & hydration check</div>
+                    <div class="item-time">10:30</div>
+                </div>
+                <div class="checklist-item" data-task="midday-3">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Deep work session #2 (90 minutes)</div>
+                    <div class="item-time">11:00</div>
+                </div>
+                <div class="checklist-item" data-task="midday-4">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Nutritious lunch (no screens)</div>
+                    <div class="item-time">12:30</div>
+                </div>
+                <div class="checklist-item" data-task="midday-5">
+                    <div class="checkbox"></div>
+                    <div class="item-text">15-minute walk outside</div>
+                    <div class="item-time">1:15</div>
+                </div>
+                <div class="checklist-item" data-task="midday-6">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Afternoon productivity block (2 hours)</div>
+                    <div class="item-time">2:00</div>
+                </div>
+                <div class="checklist-item" data-task="midday-7">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Learning session (30 min reading/course)</div>
+                    <div class="item-time">4:00</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Evening Routine -->
+        <div class="timeline-section">
+            <div class="timeline-header">
+                <h2 class="timeline-title">🌙 Evening Wind Down</h2>
+                <span class="time-block">5:00 PM - 11:00 PM</span>
+            </div>
+            <div class="checklist">
+                <div class="checklist-item" data-task="evening-1">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Healthy dinner preparation & eating</div>
+                    <div class="item-time">6:00</div>
+                </div>
+                <div class="checklist-item" data-task="evening-2">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Social time / family connection</div>
+                    <div class="item-time">7:00</div>
+                </div>
+                <div class="checklist-item" data-task="evening-3">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Reading (30 minutes)</div>
+                    <div class="item-time">8:00</div>
+                </div>
+                <div class="checklist-item" data-task="evening-4">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Prepare tomorrow's clothes & tasks</div>
+                    <div class="item-time">9:00</div>
+                </div>
+                <div class="checklist-item" data-task="evening-5">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Evening reflection & gratitude journal</div>
+                    <div class="item-time">9:30</div>
+                </div>
+                <div class="checklist-item" data-task="evening-6">
+                    <div class="checkbox"></div>
+                    <div class="item-text">No screens - relaxation/hobby</div>
+                    <div class="item-time">10:00</div>
+                </div>
+                <div class="checklist-item" data-task="evening-7">
+                    <div class="checkbox"></div>
+                    <div class="item-text">Lights out (consistent sleep time)</div>
+                    <div class="item-time">11:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Emergency Support Button -->
+    <div class="emergency-section">
+        <button class="emergency-btn" id="emergencyBtn">⚠️ Need Support</button>
+    </div>
+    
+    <!-- Support Modal -->
+    <div class="modal" id="supportModal">
+        <div class="modal-content">
+            <h3 class="modal-title">🛡️ Urge Management</h3>
+            <p style="margin-bottom: 1.5rem; line-height: 1.6;">
+                You're experiencing an urge. This is normal and temporary. Take a moment to reflect:
+            </p>
+            <textarea class="reflection-input" placeholder="What triggered this feeling? What are you really seeking right now? (Connection? Stress relief? Boredom escape?)"></textarea>
+            
+            <div style="background: rgba(78, 205, 196, 0.1); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <strong style="color: var(--success); display: block; margin-bottom: 0.5rem;">IMMEDIATE ACTIONS:</strong>
+                <ul style="line-height: 2; margin-left: 1.5rem;">
+                    <li>Do 20 pushups or jumping jacks RIGHT NOW</li>
+                    <li>Go outside for a 5-minute walk</li>
+                    <li>Call or text a trusted friend</li>
+                    <li>Take a cold shower</li>
+                    <li>Write in your journal for 10 minutes</li>
+                </ul>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="btn btn-primary" id="urgePassedBtn">Urge Passed ✓</button>
+                <button class="btn btn-secondary" id="closeModalBtn">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    
+    <script>
+        // Storage keys
+        const STORAGE_KEYS = {
+            CLEAN_STREAK: 'cleanStreak',
+            LAST_RESET_DATE: 'lastResetDate',
+            TASKS_STATE: 'tasksState',
+            WEEKLY_HISTORY: 'weeklyHistory',
+            LAST_URGE_DATE: 'lastUrgeDate'
+        };
+        
+        // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDfWzuQJ0Q8k1ozwKCM8HJg8CWKQdgbMqk",
+  authDomain: "daily-accountability-website.firebaseapp.com",
+  databaseURL: "https://daily-accountability-website-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "daily-accountability-website",
+  storageBucket: "daily-accountability-website.firebasestorage.app",
+  messagingSenderId: "233412028175",
+  appId: "1:233412028175:web:77a0b5a980167b35aa807a",
+  measurementId: "G-L7FG6K4NPZ"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+        
+        // Initialize Firebase
+        let database = null;
+        let userId = null;
+        let firebaseInitialized = false;
+        
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            
+            // Get or create unique user ID
+            userId = localStorage.getItem('userId');
+            if (!userId) {
+                userId = 'user_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                localStorage.setItem('userId', userId);
+            }
+            
+            firebaseInitialized = true;
+            console.log('Firebase initialized successfully');
+        } catch (error) {
+            console.log('Firebase initialization failed, using local storage:', error);
+            firebaseInitialized = false;
+        }
+        
+        // Cloud storage support
+        const CLOUD_STORAGE_AVAILABLE = typeof window.storage !== 'undefined';
+        
+        // Firebase storage helpers
+        async function saveToCloud(key, value) {
+            // Save to local storage first (immediate feedback)
+            localStorage.setItem(key, JSON.stringify(value));
+            
+            // Then save to Firebase
+            if (firebaseInitialized && database && userId) {
+                try {
+                    await database.ref(`users/${userId}/${key}`).set(value);
+                    updateSyncStatus('synced');
+                    console.log(`Saved ${key} to Firebase`);
+                } catch (error) {
+                    console.log('Firebase save failed:', error);
+                    updateSyncStatus('error');
+                }
+            }
+        }
+        
+        async function loadFromCloud(key) {
+            if (firebaseInitialized && database && userId) {
+                try {
+                    const snapshot = await database.ref(`users/${userId}/${key}`).once('value');
+                    const value = snapshot.val();
+                    
+                    if (value !== null) {
+                        // Save to local storage for offline access
+                        localStorage.setItem(key, JSON.stringify(value));
+                        return value;
+                    }
+                } catch (error) {
+                    console.log('Firebase load failed:', error);
+                }
+            }
+            
+            // Fallback to local storage
+            const localValue = localStorage.getItem(key);
+            return localValue ? JSON.parse(localValue) : null;
+        }
+        
+        async function syncAllData() {
+            if (!firebaseInitialized) {
+                updateSyncStatus('local');
+                return;
+            }
+            
+            try {
+                updateSyncStatus('syncing');
+                
+                // Load all data from Firebase
+                const snapshot = await database.ref(`users/${userId}`).once('value');
+                const cloudData = snapshot.val();
+                
+                if (cloudData) {
+                    // Merge cloud data with local data
+                    Object.keys(STORAGE_KEYS).forEach(key => {
+                        const storageKey = STORAGE_KEYS[key];
+                        if (cloudData[storageKey] !== undefined) {
+                            localStorage.setItem(storageKey, JSON.stringify(cloudData[storageKey]));
+                        }
+                    });
+                    console.log('Data synced from Firebase');
+                }
+                
+                updateSyncStatus('synced');
+            } catch (error) {
+                console.log('Sync failed:', error);
+                updateSyncStatus('error');
+            }
+        }
+        
+        function updateSyncStatus(status) {
+            const statusElement = document.getElementById('syncStatus');
+            if (!statusElement) return;
+            
+            switch(status) {
+                case 'synced':
+                    statusElement.textContent = '☁️ Synced across devices';
+                    statusElement.style.color = 'var(--success)';
+                    break;
+                case 'syncing':
+                    statusElement.textContent = '🔄 Syncing...';
+                    statusElement.style.color = 'var(--accent)';
+                    break;
+                case 'local':
+                    statusElement.textContent = '💾 Local storage only';
+                    statusElement.style.color = 'var(--warning)';
+                    break;
+                case 'error':
+                    statusElement.textContent = '⚠️ Sync error - using local';
+                    statusElement.style.color = 'var(--danger)';
+                    break;
+            }
+        }
+        
+        // Cloud storage helpers
+        async function saveToCloudOld(key, value) {
+            if (CLOUD_STORAGE_AVAILABLE) {
+                try {
+                    await window.storage.set(key, JSON.stringify(value), false);
+                } catch (error) {
+                    console.log('Cloud save failed, using local storage:', error);
+                }
+            }
+            // Always save to local storage as backup
+            localStorage.setItem(key, JSON.stringify(value));
+        }
+        
+        async function loadFromCloudOld(key) {
+            if (CLOUD_STORAGE_AVAILABLE) {
+                try {
+                    const result = await window.storage.get(key, false);
+                    if (result && result.value) {
+                        return JSON.parse(result.value);
+                    }
+                } catch (error) {
+                    console.log('Cloud load failed, using local storage:', error);
+                }
+            }
+            // Fallback to local storage
+            const localValue = localStorage.getItem(key);
+            return localValue ? JSON.parse(localValue) : null;
+        }
+        
+        async function syncAllDataOld() {
+            if (!CLOUD_STORAGE_AVAILABLE) {
+                document.getElementById('syncStatus').textContent = '💾 Local storage only';
+                document.getElementById('syncStatus').style.color = 'var(--warning)';
+                return;
+            }
+            
+            try {
+                // Load all data from cloud
+                const cloudStreak = await loadFromCloud(STORAGE_KEYS.CLEAN_STREAK);
+                const cloudTasks = await loadFromCloud(STORAGE_KEYS.TASKS_STATE);
+                const cloudHistory = await loadFromCloud(STORAGE_KEYS.WEEKLY_HISTORY);
+                const cloudLastReset = await loadFromCloud(STORAGE_KEYS.LAST_RESET_DATE);
+                
+                // Use cloud data if it exists and is more recent
+                if (cloudStreak !== null) {
+                    localStorage.setItem(STORAGE_KEYS.CLEAN_STREAK, JSON.stringify(cloudStreak));
+                }
+                if (cloudTasks !== null) {
+                    localStorage.setItem(STORAGE_KEYS.TASKS_STATE, JSON.stringify(cloudTasks));
+                }
+                if (cloudHistory !== null) {
+                    localStorage.setItem(STORAGE_KEYS.WEEKLY_HISTORY, JSON.stringify(cloudHistory));
+                }
+                if (cloudLastReset !== null) {
+                    localStorage.setItem(STORAGE_KEYS.LAST_RESET_DATE, JSON.stringify(cloudLastReset));
+                }
+                
+                document.getElementById('syncStatus').textContent = '☁️ Synced across devices';
+                document.getElementById('syncStatus').style.color = 'var(--success)';
+                console.log('Data synced from cloud');
+            } catch (error) {
+                document.getElementById('syncStatus').textContent = '⚠️ Sync unavailable';
+                document.getElementById('syncStatus').style.color = 'var(--warning)';
+                console.log('Sync failed:', error);
+            }
+        }
+        
+        // Motivational quotes
+        const quotes = [
+            { text: "Discipline is choosing between what you want now and what you want most.", author: "Abraham Lincoln" },
+            { text: "The only person you are destined to become is the person you decide to be.", author: "Ralph Waldo Emerson" },
+            { text: "Small daily improvements over time lead to stunning results.", author: "Robin Sharma" },
+            { text: "Your future self is watching you right now through your memories.", author: "Unknown" },
+            { text: "The pain of discipline is far less than the pain of regret.", author: "Unknown" },
+            { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+            { text: "Every day is a new opportunity to become a better version of yourself.", author: "Unknown" },
+            { text: "The struggle you're in today is developing the strength you need for tomorrow.", author: "Unknown" }
+        ];
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Sync data from cloud first
+            await syncAllData();
+            
+            initializeApp();
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            displayRandomQuote();
+            renderWeeklyChart();
+        });
+        
+        function initializeApp() {
+            checkAndResetDaily();
+            loadCleanStreak();
+            loadTasksState();
+            updateStats();
+            attachEventListeners();
+            highlightCurrentTimeBlock();
+        }
+        
+        async function checkAndResetDaily() {
+            const today = new Date().toDateString();
+            const lastResetDate = localStorage.getItem(STORAGE_KEYS.LAST_RESET_DATE);
+            
+            if (lastResetDate !== today) {
+                // New day - save yesterday's completion rate
+                await saveCompletionToHistory();
+                
+                // Reset all tasks
+                localStorage.removeItem(STORAGE_KEYS.TASKS_STATE);
+                localStorage.setItem(STORAGE_KEYS.LAST_RESET_DATE, today);
+                await saveToCloud(STORAGE_KEYS.LAST_RESET_DATE, today);
+                await saveToCloud(STORAGE_KEYS.TASKS_STATE, {});
+                
+                // Reset UI
+                document.querySelectorAll('.checklist-item').forEach(item => {
+                    item.classList.remove('completed');
+                });
+            }
+        }
+        
+        async function saveCompletionToHistory() {
+            const tasksState = JSON.parse(localStorage.getItem(STORAGE_KEYS.TASKS_STATE) || '{}');
+            const completed = Object.values(tasksState).filter(Boolean).length;
+            const total = document.querySelectorAll('.checklist-item').length;
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            
+            const history = JSON.parse(localStorage.getItem(STORAGE_KEYS.WEEKLY_HISTORY) || '[]');
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            history.push({
+                date: yesterday.toDateString(),
+                percentage: percentage
+            });
+            
+            // Keep only last 7 days
+            if (history.length > 7) {
+                history.shift();
+            }
+            
+            localStorage.setItem(STORAGE_KEYS.WEEKLY_HISTORY, JSON.stringify(history));
+            await saveToCloud(STORAGE_KEYS.WEEKLY_HISTORY, history);
+        }
+        
+        function loadCleanStreak() {
+            const streak = parseInt(localStorage.getItem(STORAGE_KEYS.CLEAN_STREAK) || '0');
+            document.getElementById('cleanStreak').textContent = streak;
+        }
+        
+        function loadTasksState() {
+            const tasksState = JSON.parse(localStorage.getItem(STORAGE_KEYS.TASKS_STATE) || '{}');
+            
+            Object.entries(tasksState).forEach(([taskId, completed]) => {
+                if (completed) {
+                    const item = document.querySelector(`[data-task="${taskId}"]`);
+                    if (item) item.classList.add('completed');
+                }
+            });
+        }
+        
+        function updateStats() {
+            const allItems = document.querySelectorAll('.checklist-item');
+            const completedItems = document.querySelectorAll('.checklist-item.completed');
+            
+            document.getElementById('totalTasks').textContent = allItems.length;
+            document.getElementById('completedTasks').textContent = completedItems.length;
+            
+            // Calculate weekly score
+            const history = JSON.parse(localStorage.getItem(STORAGE_KEYS.WEEKLY_HISTORY) || '[]');
+            if (history.length > 0) {
+                const avgScore = Math.round(history.reduce((sum, day) => sum + day.percentage, 0) / history.length);
+                document.getElementById('weeklyScore').textContent = avgScore + '%';
+            } else {
+                document.getElementById('weeklyScore').textContent = '0%';
+            }
+        }
+        
+        function attachEventListeners() {
+            // Task completion
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.addEventListener('click', async function() {
+                    this.classList.toggle('completed');
+                    await saveTaskState(this.dataset.task, this.classList.contains('completed'));
+                    updateStats();
+                });
+            });
+            
+            // Emergency button
+            document.getElementById('emergencyBtn').addEventListener('click', function() {
+                document.getElementById('supportModal').classList.add('active');
+            });
+            
+            document.getElementById('closeModalBtn').addEventListener('click', function() {
+                document.getElementById('supportModal').classList.remove('active');
+            });
+            
+            document.getElementById('urgePassedBtn').addEventListener('click', async function() {
+                // Increment streak
+                const currentStreak = parseInt(localStorage.getItem(STORAGE_KEYS.CLEAN_STREAK) || '0');
+                const newStreak = currentStreak + 1;
+                localStorage.setItem(STORAGE_KEYS.CLEAN_STREAK, newStreak);
+                await saveToCloud(STORAGE_KEYS.CLEAN_STREAK, newStreak);
+                loadCleanStreak();
+                
+                document.getElementById('supportModal').classList.remove('active');
+                
+                // Show encouragement
+                alert('💪 Strong work! You overcame the urge. Streak increased!');
+            });
+        }
+        
+        async function saveTaskState(taskId, completed) {
+            const tasksState = JSON.parse(localStorage.getItem(STORAGE_KEYS.TASKS_STATE) || '{}');
+            tasksState[taskId] = completed;
+            localStorage.setItem(STORAGE_KEYS.TASKS_STATE, JSON.stringify(tasksState));
+            await saveToCloud(STORAGE_KEYS.TASKS_STATE, tasksState);
+        }
+        
+        function updateDateTime() {
+            const now = new Date();
+            
+            // Update date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Update time
+            const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('currentTime').textContent = timeStr;
+            
+            // Update next block indicator
+            const hour = now.getHours();
+            let nextBlock = '';
+            
+            if (hour >= 0 && hour < 7) nextBlock = 'Time to rest';
+            else if (hour >= 7 && hour < 9) nextBlock = 'Morning routine active';
+            else if (hour >= 9 && hour < 17) nextBlock = 'Focus time';
+            else if (hour >= 17 && hour < 23) nextBlock = 'Evening wind down';
+            else nextBlock = 'Prepare for sleep';
+            
+            document.getElementById('nextBlock').textContent = nextBlock;
+        }
+        
+        function displayRandomQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            document.getElementById('quoteText').textContent = `"${quote.text}"`;
+            document.getElementById('quoteAuthor').textContent = `— ${quote.author}`;
+        }
+        
+        function highlightCurrentTimeBlock() {
+            const hour = new Date().getHours();
+            const sections = document.querySelectorAll('.timeline-section');
+            
+            sections.forEach(section => {
+                section.style.borderLeftColor = 'var(--primary)';
+            });
+            
+            if (hour >= 7 && hour < 9) {
+                sections[0].style.borderLeftColor = 'var(--accent)';
+            } else if (hour >= 9 && hour < 17) {
+                sections[1].style.borderLeftColor = 'var(--accent)';
+            } else if (hour >= 17 && hour < 23) {
+                sections[2].style.borderLeftColor = 'var(--accent)';
+            }
+        }
+        
+        function renderWeeklyChart() {
+            const canvas = document.getElementById('weekChart');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            canvas.width = canvas.offsetWidth;
+            canvas.height = 300;
+            
+            const history = JSON.parse(localStorage.getItem(STORAGE_KEYS.WEEKLY_HISTORY) || '[]');
+            
+            // Fill with zeros if less than 7 days
+            while (history.length < 7) {
+                const date = new Date();
+                date.setDate(date.getDate() - (7 - history.length));
+                history.unshift({ date: date.toDateString(), percentage: 0 });
+            }
+            
+            const width = canvas.width;
+            const height = canvas.height;
+            const barWidth = width / 7 - 20;
+            const maxHeight = height - 60;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+            
+            // Draw bars
+            history.forEach((day, index) => {
+                const x = index * (width / 7) + 10;
+                const barHeight = (day.percentage / 100) * maxHeight;
+                const y = height - barHeight - 30;
+                
+                // Bar
+                const gradient = ctx.createLinearGradient(0, y, 0, y + barHeight);
+                gradient.addColorStop(0, '#ff6b35');
+                gradient.addColorStop(1, '#f7931e');
+                
+                ctx.fillStyle = gradient;
+                ctx.fillRect(x, y, barWidth, barHeight);
+                
+                // Percentage text
+                ctx.fillStyle = '#eaeaea';
+                ctx.font = '14px JetBrains Mono';
+                ctx.textAlign = 'center';
+                ctx.fillText(day.percentage + '%', x + barWidth / 2, y - 10);
+                
+                // Day label
+                const dayDate = new Date(day.date);
+                const dayName = dayDate.toLocaleDateString('en-US', { weekday: 'short' });
+                ctx.fillStyle = '#00d9ff';
+                ctx.font = '12px JetBrains Mono';
+                ctx.fillText(dayName, x + barWidth / 2, height - 5);
+            });
+        }
+        
+        // Reset streak button (hidden, only accessible via console for emergency reset)
+        window.resetStreak = function() {
+            if (confirm('Are you sure you want to reset your streak? This cannot be undone.')) {
+                localStorage.setItem(STORAGE_KEYS.CLEAN_STREAK, '0');
+                loadCleanStreak();
+            }
+        };
+    </script>
+</body>
+</html>
