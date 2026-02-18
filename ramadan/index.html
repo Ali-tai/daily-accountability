@@ -1,1 +1,2610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramadan Transformation System | 30-Day Blueprint</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+        
+        :root {
+            --primary: #00A86B;
+            --secondary: #FFD700;
+            --accent: #E63946;
+            --dark: #0A1128;
+            --darker: #001219;
+            --light: #F8F9FA;
+            --gray: #6C757D;
+            --border: rgba(255, 255, 255, 0.1);
+            --success: #4ECDC4;
+            --warning: #FFC857;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(0, 168, 107, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-bottom: 3px solid var(--primary);
+            background: linear-gradient(135deg, rgba(0, 168, 107, 0.1), rgba(255, 215, 0, 0.05));
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '☪';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+        
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 30px rgba(0, 168, 107, 0.3)); }
+            50% { filter: drop-shadow(0 0 50px rgba(0, 168, 107, 0.5)); }
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stats-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            margin: 0.5rem;
+            border: 1px solid var(--border);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .stats-badge strong {
+            color: var(--secondary);
+        }
+        
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: 1px solid transparent;
+        }
+        
+        nav a:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Section styles */
+        section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 3rem;
+            margin-bottom: 2rem;
+            border-radius: 20px;
+            border-left: 5px solid var(--primary);
+            border: 1px solid var(--border);
+        }
+        
+        section h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        section h2::before {
+            content: '⚡';
+            font-size: 2rem;
+        }
+        
+        section h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        section h4 {
+            font-size: 1.4rem;
+            color: var(--success);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        /* Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 168, 107, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .card-header {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Grid layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+        
+        ul li::marker {
+            color: var(--primary);
+        }
+        
+        /* Checklists */
+        .checklist {
+            background: rgba(0, 168, 107, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+        
+        /* Code blocks */
+        .code-block {
+            background: var(--darker);
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            margin: 1.5rem 0;
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: var(--primary);
+            color: var(--darker);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Alert boxes */
+        .alert {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+        
+        .alert-success {
+            background: rgba(78, 205, 196, 0.1);
+            border-color: var(--success);
+        }
+        
+        .alert-warning {
+            background: rgba(255, 200, 87, 0.1);
+            border-color: var(--warning);
+        }
+        
+        .alert-danger {
+            background: rgba(230, 57, 70, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .alert-info {
+            background: rgba(0, 168, 107, 0.1);
+            border-color: var(--primary);
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+        
+        .badge-primary { background: var(--primary); color: var(--darker); }
+        .badge-secondary { background: var(--secondary); color: var(--darker); }
+        .badge-success { background: var(--success); color: var(--darker); }
+        .badge-warning { background: var(--warning); color: var(--darker); }
+        .badge-danger { background: var(--accent); color: white; }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--primary);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 0.5rem;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid var(--darker);
+        }
+        
+        .timeline-time {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--secondary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Progress bars */
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+            border: 1px solid var(--border);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--darker);
+            font-family: 'IBM Plex Mono', monospace;
+            transition: width 1s ease;
+        }
+        
+        /* Emphasis */
+        strong {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+        
+        em {
+            color: var(--primary);
+            font-style: normal;
+        }
+        
+        /* Print button */
+        .print-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary);
+            color: var(--darker);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 168, 107, 0.3);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            z-index: 1000;
+        }
+        
+        .print-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 168, 107, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            section { padding: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            nav ul { flex-direction: column; }
+        }
+        
+        @media print {
+            body { background: white; color: black; }
+            section { page-break-inside: avoid; }
+            .print-btn, nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>☪ Ramadan Transformation System</h1>
+            <div class="subtitle">30-Day Complete Optimization Blueprint</div>
+            <div>
+                <span class="stats-badge"><strong>Physical:</strong> 115kg → 111kg</span>
+                <span class="stats-badge"><strong>Learning:</strong> 80+ hours</span>
+                <span class="stats-badge"><strong>Spiritual:</strong> Complete Quran</span>
+                <span class="stats-badge sync-status"><strong>🔄 Initializing...</strong></span>
+            </div>
+        </header>
 
+        <!-- Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#quran">Quran Plan</a></li>
+                <li><a href="#training">Training</a></li>
+                <li><a href="#nutrition">Nutrition</a></li>
+                <li><a href="#learning">Learning</a></li>
+                <li><a href="#schedule">Daily Schedule</a></li>
+                <li><a href="#tracking">Tracking</a></li>
+            </ul>
+        </nav>
+
+        <!-- SECTION 1: Overview -->
+        <section id="overview">
+            <h2>🎯 System Overview</h2>
+            
+            <div class="alert alert-info">
+                <strong>Mission Statement:</strong> Transform your body, mind, and soul during the blessed month of Ramadan through disciplined execution of three simultaneous goals: fat loss with muscle preservation, Cloud/Automation mastery, and complete Quran recitation.
+            </div>
+
+            <h3>Your Profile</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">📊 Physical Stats</div>
+                    <ul>
+                        <li><strong>Current Weight:</strong> 115 kg</li>
+                        <li><strong>Height:</strong> 186 cm</li>
+                        <li><strong>BMI:</strong> 33.2</li>
+                        <li><strong>Est. Body Fat:</strong> 30-35%</li>
+                        <li><strong>Lean Mass:</strong> ~75-80 kg</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">🎯 Target Outcomes</div>
+                    <ul>
+                        <li><strong>Fat Loss:</strong> 3-4 kg in 30 days</li>
+                        <li><strong>Target Weight:</strong> 111 kg</li>
+                        <li><strong>Weekly Loss:</strong> 0.75-1 kg/week</li>
+                        <li><strong>Muscle:</strong> Maintain or increase</li>
+                        <li><strong>Strength:</strong> Within 10-15% of baseline</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">⚙️ Key Metrics</div>
+                    <ul>
+                        <li><strong>Calories:</strong> 1,960 kcal/day</li>
+                        <li><strong>Protein:</strong> 200-230g/day</li>
+                        <li><strong>Training:</strong> 4x/week fasted</li>
+                        <li><strong>Hydration:</strong> 4L/day (evening)</li>
+                        <li><strong>Deficit:</strong> ~600 kcal/day</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Triple Goal Framework</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">💪 Physical Excellence</div>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>1,960 kcal daily intake (aggressive 25% deficit)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>200-230g protein daily (muscle preservation)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>4 fasted training sessions weekly (pre-Iftar)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>4L water daily (evening hours only)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Maintain strength within 10-15% baseline</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">📚 Learning Excellence</div>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>20-25 hours deep work weekly</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Complete Cloud fundamentals (4 week curriculum)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Build 2+ functional deployed projects</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Hands-on labs: AWS/Azure free tier</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Certification exam ready by end</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">🕌 Spiritual Excellence</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Complete Quran recitation (604 pages in 30 days = 20 pages daily)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>All 5 prayers on time daily (150 total prayers)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Tarawih attendance (aim for 25+ nights)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Fajr on time every single day (non-negotiable)</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Daily gratitude journal and dua</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Critical Success Formula:</strong> Consistency beats intensity. Hit 80% compliance = 90% of results. Missing one day doesn't mean failure—just get back on track immediately.
+            </div>
+        </section>
+
+        <!-- SECTION 2: Quran Completion Plan -->
+        <section id="quran">
+            <h2>📖 Quran Completion Plan (Khatm in 30 Days)</h2>
+
+            <div class="alert alert-success">
+                <strong>Goal:</strong> Complete all 604 pages of the Quran by reading 20 pages daily, distributed across 5 prayer times.
+            </div>
+
+            <h3>Daily Distribution: 4 Pages After Each Prayer</h3>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">After Fajr (07:20-07:45)</div>
+                    <div class="card">
+                        <strong>4 Pages | 25 minutes</strong>
+                        <p><strong>Why:</strong> Fresh mind, minimal distractions, blessed morning hours. This is your BEST focus session—never skip this one.</p>
+                        <p><strong>Style:</strong> With tajweed and reflection</p>
+                        <span class="badge badge-success">Peak Comprehension</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">After Dhuhr (13:00-13:25)</div>
+                    <div class="card">
+                        <strong>4 Pages | 25 minutes</strong>
+                        <p><strong>Why:</strong> Midday spiritual reset, breaks up work sessions, good energy before afternoon fatigue.</p>
+                        <p><strong>Benefit:</strong> Builds momentum for afternoon productivity</p>
+                        <span class="badge badge-primary">Mental Reset</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">After Asr (16:00-16:25)</div>
+                    <div class="card">
+                        <strong>4 Pages | 25 minutes</strong>
+                        <p><strong>Why:</strong> Peaceful afternoon time, natural energy dip perfect for worship, calms hunger.</p>
+                        <p><strong>Benefit:</strong> Builds anticipation for Iftar, spiritual anchor</p>
+                        <span class="badge badge-primary">Pre-Iftar Peace</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">After Maghrib (18:20-18:45)</div>
+                    <div class="card">
+                        <strong>4 Pages | 25 minutes</strong>
+                        <p><strong>Why:</strong> BEST comprehension of the entire day—you're nourished, energized, and mentally sharp post-Iftar.</p>
+                        <p><strong>Benefit:</strong> Maximum retention and understanding</p>
+                        <span class="badge badge-warning">Optimal State</span>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">After Isha/Tarawih (22:00-22:25)</div>
+                    <div class="card">
+                        <strong>4 Pages | 25 minutes</strong>
+                        <p><strong>Why:</strong> Evening completion, reflective state, sleep with Quran on mind.</p>
+                        <p><strong>Benefit:</strong> Complete daily 20-page target, spiritual closure</p>
+                        <span class="badge badge-success">Daily Completion</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Reading Pace Guide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pace</th>
+                        <th>Minutes/Page</th>
+                        <th>Total Time (4 pages)</th>
+                        <th>Style</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fast</td>
+                        <td>5 min/page</td>
+                        <td>20 minutes</td>
+                        <td>Basic recitation</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medium (Recommended)</strong></td>
+                        <td><strong>6-7 min/page</strong></td>
+                        <td><strong>24-28 minutes</strong></td>
+                        <td><strong>With tajweed ✓</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Slow/Reflective</td>
+                        <td>8-10 min/page</td>
+                        <td>32-40 minutes</td>
+                        <td>With meaning/tafsir</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Weekly Milestones (Juz Tracking)</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Week 1 (Days 1-7)</div>
+                    <strong>Pages 1-140 → Juz 1-7</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%">23%</div>
+                    </div>
+                    <p>Day 1: Al-Fatihah - Al-Baqarah</p>
+                    <p>Day 7: Al-Ma'idah - Al-An'am</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Week 2 (Days 8-14)</div>
+                    <strong>Pages 141-280 → Juz 8-14</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 46%">46%</div>
+                    </div>
+                    <p>Day 14: Al-Hijr - An-Nahl</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Week 3 (Days 15-21) 🎉</div>
+                    <strong>Pages 281-420 → Juz 15-21</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 70%">70%</div>
+                    </div>
+                    <p><strong>Day 15: HALFWAY MARK!</strong></p>
+                    <p>Day 21: Al-Ankabut</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">Week 4 + Final Days</div>
+                    <strong>Pages 421-604 → Juz 22-30</strong>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%">100%</div>
+                    </div>
+                    <p>Day 27: Laylat al-Qadr focus</p>
+                    <p><strong>Day 30: KHATM COMPLETE! 🤲</strong></p>
+                </div>
+            </div>
+
+            <h3>Catch-Up Strategy</h3>
+            <div class="alert alert-warning">
+                <strong>Missed 1 Session (4 pages)?</strong>
+                <p>→ Add 2 pages to next 2 prayer sessions (6 pages × 2 = catch up)</p>
+                
+                <strong>Missed Entire Day (20 pages)?</strong>
+                <p>→ Option A: Add 1 page per session for next 5 days (21 pages/day for 5 days)</p>
+                <p>→ Option B: Dedicate Friday afternoon for catch-up (4-5 hour block)</p>
+                
+                <strong>Behind by 3+ Days?</strong>
+                <p>→ Adjust to 22 pages/day (add 1 page to 2 sessions)</p>
+                <p>→ Build weekend buffer with extra 10 pages Friday/Saturday</p>
+            </div>
+
+            <h3>Daily Tracking Checklist</h3>
+            <div class="code-block">
+Date: _________
+
+☐ After Fajr (07:20): Pages ___-___ ✓ (4 pages)
+☐ After Dhuhr (13:00): Pages ___-___ ✓ (4 pages)
+☐ After Asr (16:00): Pages ___-___ ✓ (4 pages)
+☐ After Maghrib (18:20): Pages ___-___ ✓ (4 pages)
+☐ After Isha (22:00): Pages ___-___ ✓ (4 pages)
+
+Daily Total: ___ / 20 pages ✓
+Running Total: ___ / 604 pages
+Progress: ___% complete
+Days remaining: ___ days
+            </div>
+
+            <h3>Pro Tips for Success</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">🎯 Never Skip Fajr Session</div>
+                    <p>This sets the spiritual and productivity tone for your entire day. If you skip others, you can catch up—but protect your Fajr reading at all costs.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header">📱 Use Technology Wisely</div>
+                    <ul>
+                        <li>Quran.com app: Track progress automatically</li>
+                        <li>Ayah.com: Quick tafsir between verses</li>
+                        <li>Set 5 daily alarms after each prayer</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">🪑 Physical Setup</div>
+                    <ul>
+                        <li>Good lighting (avoid eye strain)</li>
+                        <li>Comfortable cushion/chair</li>
+                        <li>Mushaf at eye level (prevent neck pain)</li>
+                        <li>Fresh wudu before each session</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">🎧 Integration with Tarawih</div>
+                    <p>The Imam will recite ~20 pages/night = reinforcement of your reading. Listen actively during Tarawih—both reading + listening = 2× exposure and deeper retention.</p>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>Motivation Boost:</strong> This is 20 pages spread over 16 waking hours. Each session is only 25 minutes—less than one YouTube video! The Prophet ﷺ would complete the Quran every 7 days outside Ramadan. You can do this. 💪
+            </div>
+        </section>
+
+        <!-- SECTION 3: Training Protocol -->
+        <section id="training">
+            <h2>🏋️ Pre-Iftar Fasted Training Protocol</h2>
+
+            <div class="alert alert-info">
+                <strong>Training Window:</strong> 16:45-17:45 (Pre-Iftar, fully fasted state)<br>
+                <strong>Break Fast:</strong> 17:50 immediately post-training with Maghrib adhan
+            </div>
+
+            <h3>Why Pre-Iftar Training Works</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">✅ Advantages</div>
+                    <ul>
+                        <li><strong>Hormonal optimization:</strong> Growth hormone elevated in fasted state</li>
+                        <li><strong>Fat oxidation:</strong> Body burning fat for fuel during workout</li>
+                        <li><strong>Perfect nutrient timing:</strong> Break fast right after = immediate recovery</li>
+                        <li><strong>Afternoon energy spike:</strong> Natural energy peak before Iftar</li>
+                        <li><strong>Better sleep quality:</strong> Training far from bedtime</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">⚠️ Challenges & Solutions</div>
+                    <ul>
+                        <li><strong>Dehydration risk:</strong> Massive post-workout hydration protocol</li>
+                        <li><strong>Lower strength:</strong> Expect 10-15% drop (normal and temporary)</li>
+                        <li><strong>Mental fatigue:</strong> 16 hours fasted—reduce volume by 25%</li>
+                        <li><strong>Glycogen depletion:</strong> High-carb post-training meal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Weekly Training Schedule (4 Days)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Workout</th>
+                        <th>Focus</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sunday</td>
+                        <td>Upper Push</td>
+                        <td>Chest, Shoulders, Triceps</td>
+                        <td>55-60 min</td>
+                    </tr>
+                    <tr>
+                        <td>Monday</td>
+                        <td>Active Recovery</td>
+                        <td>Light walk, stretching</td>
+                        <td>30 min</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>Lower Squat</td>
+                        <td>Quads, Hamstrings, Glutes</td>
+                        <td>55-60 min</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>Complete Rest</td>
+                        <td>Recovery & spiritual focus</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>Upper Pull</td>
+                        <td>Back, Biceps, Rear Delts</td>
+                        <td>55-60 min</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>Jumu'ah (Flexible)</td>
+                        <td>Light activity or rest</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday</td>
+                        <td>Lower Deadlift</td>
+                        <td>Posterior chain, Deadlifts</td>
+                        <td>55-60 min</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Fasted Training Workout Programs</h3>
+
+            <h4>Sunday: Upper Push (55 min)</h4>
+            <div class="code-block">
+Warm-up: 5 min (dynamic stretching, arm circles)
+
+A1. Barbell Bench Press - 3×6-8 reps | Rest 120 sec
+A2. Overhead Press - 3×8-10 reps | Rest 120 sec
+
+B1. Incline Dumbbell Press - 3×10-12 reps | Rest 90 sec
+B2. Cable Flyes - 3×12-15 reps | Rest 90 sec
+
+C. Lateral Raises superset Tricep Pushdowns
+   3×12-15 reps each | Rest 60 sec
+
+Core: Plank 2×45 sec
+            </div>
+
+            <h4>Tuesday: Lower Squat (55 min)</h4>
+            <div class="code-block">
+Warm-up: 5 min (leg swings, bodyweight squats, hip circles)
+
+A1. Barbell Back Squat - 3×6-8 reps | Rest 120 sec
+A2. Romanian Deadlift - 3×8-10 reps | Rest 120 sec
+
+B1. Bulgarian Split Squat - 3×8/leg | Rest 90 sec
+B2. Leg Curl - 3×12-15 reps | Rest 90 sec
+
+C. Calf Raises - 3×15-20 reps | Rest 60 sec
+
+Core: Dead Bug 2×8/side
+            </div>
+
+            <h4>Thursday: Upper Pull (55 min)</h4>
+            <div class="code-block">
+Warm-up: 5 min (band pull-aparts, scapular wall slides)
+
+A1. Barbell Row - 3×6-8 reps | Rest 120 sec
+A2. Pull-ups or Lat Pulldown - 3×8-10 reps | Rest 120 sec
+
+B1. Single-Arm Dumbbell Row - 3×10/arm | Rest 90 sec
+B2. Face Pulls - 3×15-20 reps | Rest 90 sec
+
+C. Barbell Curl superset Hammer Curl
+   3×10-12 reps each | Rest 60 sec
+
+Core: Pallof Press 2×8/side
+            </div>
+
+            <h4>Saturday: Lower Deadlift (55 min)</h4>
+            <div class="code-block">
+Warm-up: 5 min (hip flexor stretch, glute bridges)
+
+A1. Conventional Deadlift - 3×5-6 reps | Rest 120-150 sec
+A2. Front Squat - 3×8-10 reps | Rest 120 sec
+
+B1. Walking Lunges - 3×10/leg | Rest 90 sec
+B2. Leg Extensions - 3×12-15 reps | Rest 90 sec
+
+C. Hip Thrusts - 3×12-15 reps | Rest 60 sec
+
+Core: Ab Wheel 2×8-12 reps
+            </div>
+
+            <h3>Critical Safety Protocols</h3>
+            <div class="alert alert-danger">
+                <strong>🚨 STOP TRAINING IMMEDIATELY IF:</strong>
+                <ul>
+                    <li>Dizziness or lightheadedness</li>
+                    <li>Severe headache</li>
+                    <li>Nausea or vomiting sensation</li>
+                    <li>Heart palpitations</li>
+                    <li>Vision problems (tunnel vision, spots)</li>
+                    <li>Extreme weakness (cannot complete set with proper form)</li>
+                </ul>
+                <p><strong>Action:</strong> Sit down immediately, put head between knees, wait for Maghrib (max 30 min), break fast ASAP, skip remaining exercises.</p>
+            </div>
+
+            <h3>Pre-Workout Protocol (16:30-16:45)</h3>
+            <div class="card">
+                <strong>NO FOOD OR WATER - You're still fasting</strong>
+                <p><strong>What you CAN do:</strong></p>
+                <ul>
+                    <li>✅ Chew gum (if your fiqh allows) - stimulates saliva</li>
+                    <li>✅ Splash cold water on face/neck - cooling effect</li>
+                    <li>✅ Light dynamic stretching - wake up muscles</li>
+                    <li>✅ Mental visualization - prepare mind for intensity</li>
+                </ul>
+                <p><strong>What to AVOID:</strong></p>
+                <ul>
+                    <li>❌ Pre-workout supplements (save for post-Iftar next day)</li>
+                    <li>❌ Caffeine pills (will dehydrate you more)</li>
+                    <li>❌ BCAAs/EAAs (breaks fast)</li>
+                </ul>
+            </div>
+
+            <h3>Performance Expectations</h3>
+            <div class="card">
+                <div class="card-header">Normal Fasted Training Performance Drops</div>
+                <ul>
+                    <li><strong>Strength:</strong> 10-15% decrease (EXPECTED)</li>
+                    <li><strong>Endurance:</strong> 15-20% decrease (EXPECTED)</li>
+                    <li><strong>Volume capacity:</strong> 20-25% decrease (EXPECTED)</li>
+                </ul>
+                <p><strong>Examples:</strong></p>
+                <ul>
+                    <li>Bench press: 100kg × 8 reps → 85kg × 8 reps ✓ Normal</li>
+                    <li>Squat: 140kg × 6 reps → 120kg × 6 reps ✓ Normal</li>
+                    <li>Pull-ups: 12 reps → 9 reps ✓ Normal</li>
+                </ul>
+                <div class="alert alert-success">
+                    <strong>This is NOT losing strength!</strong> This is acute glycogen depletion. Post-Ramadan, you'll return to baseline within 1-2 weeks and often surpass it.
+                </div>
+            </div>
+
+            <h3>Week-by-Week Adaptation</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Week</th>
+                        <th>Goal</th>
+                        <th>Strength Level</th>
+                        <th>Focus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Week 1</td>
+                        <td>Adaptation</td>
+                        <td>80-85% of baseline</td>
+                        <td>FORM over weight, complete workouts safely</td>
+                    </tr>
+                    <tr>
+                        <td>Week 2</td>
+                        <td>Stabilization</td>
+                        <td>85-90% of baseline</td>
+                        <td>Body adapts, can increase intensity slightly</td>
+                    </tr>
+                    <tr>
+                        <td>Week 3-4</td>
+                        <td>Maintenance</td>
+                        <td>90-95% of baseline</td>
+                        <td>Maintain weights, no progression attempts</td>
+                    </tr>
+                    <tr>
+                        <td>Post-Ramadan 1-2</td>
+                        <td>Rebound</td>
+                        <td>100-105% of baseline</td>
+                        <td>Strength returns, begin progressive overload</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 4: Nutrition Plan -->
+        <section id="nutrition">
+            <h2>🍽️ Nutrition & Meal Plan</h2>
+
+            <div class="alert alert-info">
+                <strong>Daily Targets:</strong> 1,960 kcal | 200-230g Protein | 195g Carbs | 44g Fat<br>
+                <strong>Deficit:</strong> ~600 kcal/day = 0.75-1 kg fat loss per week
+            </div>
+
+            <h3>Macro Breakdown & Rationale</h3>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">Protein: 200-230g (45-47%)</div>
+                    <strong>2.0g per kg bodyweight</strong>
+                    <p>Critical for muscle preservation during aggressive deficit + fasting. Non-negotiable.</p>
+                    <span class="badge badge-danger">CRITICAL</span>
+                </div>
+                <div class="card">
+                    <div class="card-header">Carbs: 195g (40%)</div>
+                    <strong>Moderate, timed around training</strong>
+                    <p>Higher on training days to support fasted workout recovery and glycogen replenishment.</p>
+                    <span class="badge badge-primary">Training Fuel</span>
+                </div>
+                <div class="card">
+                    <div class="card-header">Fats: 44g (20%)</div>
+                    <strong>Essential minimum</strong>
+                    <p>Hormone production, vitamin absorption, satiety at Suhoor.</p>
+                    <span class="badge badge-secondary">Essential</span>
+                </div>
+            </div>
+
+            <h3>Complete Daily Meal Structure</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">Suhoor (06:40) - 690 kcal | 61g protein</div>
+                    <div class="code-block">
+• 60g oats (raw) → 230 kcal, 10g protein
+• 250ml skim milk → 90 kcal, 9g protein
+• 40g whey protein powder → 150 kcal, 32g protein
+• 1 whole egg (boiled) → 70 kcal, 6g protein
+• 100g banana → 90 kcal, 1g protein
+• 10g peanut butter → 60 kcal, 3g protein
+• Pinch of salt (electrolytes)
+
+TOTAL: 690 kcal | 61g protein | 72g carbs | 15g fat
+                    </div>
+                    <div class="alert alert-success">
+                        <strong>Why this works:</strong> Slow-digesting oats + high protein keeps you full. Fats slow digestion further. Banana provides quick potassium. Salt prevents electrolyte depletion.
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Iftar Break (17:50 - Immediately Post-Training)</div>
+                    <div class="code-block">
+• 3 Medjool dates → 70 kcal, 18g carbs
+• 500ml water with electrolyte powder
+• 20g mixed nuts → 120 kcal, 5g protein
+
+TOTAL: 190 kcal | 5g protein | 18g carbs
+                    </div>
+                    <span class="badge badge-warning">URGENT: Drink 500ml water fast!</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Post-Workout Shake (18:05 - 10min post-training)</div>
+                    <div class="code-block">
+• 40g whey protein → 150 kcal, 32g protein
+• 1 banana (100g) → 90 kcal, 1g protein, 23g carbs
+• 5g creatine monohydrate (0 kcal)
+• 5g glutamine - optional (0 kcal)
+• 300ml water
+
+TOTAL: 240 kcal | 33g protein | 41g carbs | 1g fat
+                    </div>
+                    <span class="badge badge-success">Anabolic Window: Immediate protein synthesis</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Main Iftar Meal (18:30 - 40min post-training)</div>
+                    <div class="card">
+                        <strong>Option 1: Chicken Power Bowl</strong>
+                        <div class="code-block">
+• 250g chicken breast (grilled) → 275 kcal, 52g protein
+• 120g sweet potato (baked) → 100 kcal, 2g protein
+• 250g mixed vegetables → 80 kcal, 6g protein
+• 100g white rice (cooked) → 130 kcal, 3g protein
+• 10g olive oil → 90 kcal
+• Spices: turmeric, cumin, black pepper
+
+TOTAL: 675 kcal | 63g protein | 78g carbs | 14g fat
+                        </div>
+                    </div>
+                    <div class="card">
+                        <strong>Option 2: Tuna & Rice</strong>
+                        <div class="code-block">
+• 250g tuna (in water) → 200 kcal, 70g protein
+• 150g white rice (cooked) → 195 kcal, 4g protein
+• 250g vegetables → 80 kcal, 6g protein
+• 10g olive oil → 90 kcal
+
+TOTAL: 565 kcal | 80g protein | 63g carbs | 14g fat
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Evening Meal (22:30) - 280 kcal | 38g protein</div>
+                    <div class="code-block">
+• 180g lean ground beef (93/7) → 250 kcal, 40g protein
+• 150g sweet potato → 130 kcal, 3g protein
+• 200g mixed salad → 40 kcal, 2g protein
+• 100g onions (cooked) → 40 kcal
+• 10g olive oil → 90 kcal
+• Spices
+
+TOTAL: 550 kcal | 45g protein | 48g carbs | 24g fat
+                    </div>
+                </div>
+            </div>
+
+            <h3>Daily Nutrition Summary</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Meal</th>
+                        <th>Time</th>
+                        <th>Calories</th>
+                        <th>Protein</th>
+                        <th>Carbs</th>
+                        <th>Fat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Suhoor</td>
+                        <td>06:40</td>
+                        <td>690</td>
+                        <td>61g</td>
+                        <td>72g</td>
+                        <td>15g</td>
+                    </tr>
+                    <tr>
+                        <td>Iftar Break</td>
+                        <td>17:50</td>
+                        <td>190</td>
+                        <td>5g</td>
+                        <td>18g</td>
+                        <td>8g</td>
+                    </tr>
+                    <tr>
+                        <td>Post-Workout Shake</td>
+                        <td>18:05</td>
+                        <td>240</td>
+                        <td>33g</td>
+                        <td>41g</td>
+                        <td>1g</td>
+                    </tr>
+                    <tr>
+                        <td>Main Iftar</td>
+                        <td>18:30</td>
+                        <td>675</td>
+                        <td>63g</td>
+                        <td>78g</td>
+                        <td>14g</td>
+                    </tr>
+                    <tr>
+                        <td>Evening Meal</td>
+                        <td>22:30</td>
+                        <td>550</td>
+                        <td>45g</td>
+                        <td>48g</td>
+                        <td>24g</td>
+                    </tr>
+                    <tr style="background: rgba(0, 168, 107, 0.2); font-weight: bold;">
+                        <td colspan="2">DAILY TOTAL</td>
+                        <td>2,345 kcal</td>
+                        <td>207g</td>
+                        <td>257g</td>
+                        <td>62g</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Hydration Protocol (CRITICAL)</h3>
+            <div class="alert alert-danger">
+                <strong>Goal: 4-4.5L between Iftar and Suhoor</strong>
+                <p>This is NON-NEGOTIABLE for fasted training. Dehydration = performance drop + health risk.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">17:50 - Break Fast</div>
+                    <strong>500ml water + electrolytes (DRINK FAST)</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">18:05 - With Shake</div>
+                    <strong>300ml water (mixed with protein)</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">18:15 - Additional</div>
+                    <strong>500ml water</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">19:00</div>
+                    <strong>500ml water</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">20:00 - During Tarawih</div>
+                    <strong>500ml water</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">21:30</div>
+                    <strong>500ml water</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">22:30 - With Evening Meal</div>
+                    <strong>500ml water</strong>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">06:40 - With Suhoor</div>
+                    <strong>500ml water</strong>
+                </div>
+            </div>
+            <div class="alert alert-success">
+                <strong>Total: 4.3L liquid intake</strong><br>
+                Add pinch of sea salt to 2-3 water servings for electrolytes.
+            </div>
+
+            <h3>Essential Supplements</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">✅ ESSENTIAL (Non-Negotiable)</div>
+                    <ul>
+                        <li><strong>Whey Protein:</strong> 70-110g daily (bridge protein gap)</li>
+                        <li><strong>Creatine:</strong> 5g daily (maintain muscle + strength)</li>
+                        <li><strong>Multivitamin:</strong> With Suhoor</li>
+                        <li><strong>Vitamin D:</strong> 4000 IU daily</li>
+                        <li><strong>Magnesium:</strong> 400mg before bed (sleep + recovery)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">Optional (But Beneficial)</div>
+                    <ul>
+                        <li><strong>EAAs/BCAAs:</strong> 10g during training (if energy very low)</li>
+                        <li><strong>Beta-Alanine:</strong> 3-5g daily (training endurance)</li>
+                        <li><strong>Electrolyte Powder:</strong> 1-2 servings daily</li>
+                        <li><strong>Caffeine:</strong> 200mg pre-workout next day (if tolerated)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Learning Roadmap -->
+        <section id="learning">
+            <h2>☁️ Cloud & Automation Learning Roadmap</h2>
+
+            <div class="alert alert-info">
+                <strong>Ramadan Goal:</strong> 80-100 total study hours | Complete Cloud Fundamentals (Week 1-4 curriculum) | Build 2+ deployed projects | Certification exam-ready
+            </div>
+
+            <h3>Learning Philosophy for Ramadan</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Core Principles</div>
+                    <ul>
+                        <li><strong>Quality > Quantity:</strong> 2-3 focused hours beats 6 distracted hours</li>
+                        <li><strong>Project-based learning:</strong> Build, don't just consume</li>
+                        <li><strong>Spaced repetition:</strong> Review previous concepts daily</li>
+                        <li><strong>80/20 rule:</strong> Focus on high-impact skills first</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">Weekly Targets</div>
+                    <ul>
+                        <li><strong>Deep Work:</strong> 20-25 hours</li>
+                        <li><strong>Hands-On Practice:</strong> 8-12 hours</li>
+                        <li><strong>Tutorial/Passive:</strong> 5-8 hours</li>
+                        <li><strong>Total Learning:</strong> 33-45 hours/week</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Phase 1: Cloud Fundamentals (Ramadan - 4 Weeks)</h3>
+
+            <h4>Week 1: Cloud Foundations</h4>
+            <div class="card">
+                <div class="card-header">📚 Core Concepts (4 hours)</div>
+                <ul>
+                    <li>IaaS vs PaaS vs SaaS models</li>
+                    <li>Cloud deployment models (public, private, hybrid)</li>
+                    <li>Basic networking (IP, DNS, HTTP/HTTPS)</li>
+                    <li>Security fundamentals (IAM, least privilege)</li>
+                </ul>
+                
+                <div class="card-header">🛠️ Hands-On Project</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Create AWS/Azure free tier account</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Deploy static website on S3/Azure Blob Storage</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Configure custom domain with Route 53/Azure DNS</div>
+                    </div>
+                </div>
+
+                <div class="card-header">📖 Resources</div>
+                <ul>
+                    <li>AWS Cloud Practitioner Essentials (free course)</li>
+                    <li>Azure Fundamentals AZ-900 learning path</li>
+                    <li>freeCodeCamp "AWS Certified Cloud Practitioner" (YouTube)</li>
+                </ul>
+            </div>
+
+            <h4>Week 2: Compute & Virtual Machines</h4>
+            <div class="card">
+                <div class="card-header">📚 Core Concepts (5 hours)</div>
+                <ul>
+                    <li>EC2/Azure VMs fundamentals</li>
+                    <li>Instance types and sizing</li>
+                    <li>SSH and remote access</li>
+                    <li>Basic Linux commands</li>
+                </ul>
+                
+                <div class="card-header">🛠️ Hands-On Project</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Launch EC2 instance</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>SSH into server and install NGINX</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Deploy simple Node.js/Python application</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Week 3: Storage & Databases</h4>
+            <div class="card">
+                <div class="card-header">📚 Core Concepts (5 hours)</div>
+                <ul>
+                    <li>Object storage (S3/Blob)</li>
+                    <li>Block storage (EBS/Managed Disks)</li>
+                    <li>Relational vs NoSQL databases</li>
+                    <li>RDS/Azure SQL basics</li>
+                </ul>
+                
+                <div class="card-header">🛠️ Hands-On Project</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Set up PostgreSQL RDS instance</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Configure S3 bucket with lifecycle policies</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Build simple CRUD application with database</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4>Week 4: Networking & Security</h4>
+            <div class="card">
+                <div class="card-header">📚 Core Concepts (5 hours)</div>
+                <ul>
+                    <li>VPC/VNet architecture</li>
+                    <li>Subnets, route tables, gateways</li>
+                    <li>Security groups vs NACLs</li>
+                    <li>Load balancers</li>
+                </ul>
+                
+                <div class="card-header">🛠️ Hands-On Project</div>
+                <div class="checklist">
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Design and implement custom VPC</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Deploy app across public/private subnets</div>
+                    </div>
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div>Configure application load balancer + WAF rules</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Parallel Track: Automation Foundations</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">Bash/Shell Scripting</div>
+                    <ul>
+                        <li>Variables, loops, conditionals</li>
+                        <li>File operations</li>
+                        <li>System automation</li>
+                        <li><strong>Project:</strong> Backup automation script</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">Python for Automation</div>
+                    <ul>
+                        <li>File handling</li>
+                        <li>API interactions (requests library)</li>
+                        <li>Data processing (pandas basics)</li>
+                        <li><strong>Project:</strong> Log parser and analyzer</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Post-Ramadan Learning Path (Weeks 5-24)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">Weeks 5-6: Containerization</div>
+                    <p>Docker fundamentals, Docker Compose, Container orchestration intro</p>
+                    <strong>Project:</strong> Containerize full-stack application
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">Weeks 7-8: Kubernetes</div>
+                    <p>K8s architecture, Pods/Services/Deployments, EKS/AKS deployment</p>
+                    <strong>Project:</strong> Deploy microservices on Kubernetes
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">Weeks 9-10: CI/CD Pipelines</div>
+                    <p>Git workflows, GitHub Actions/Azure DevOps, Automated testing</p>
+                    <strong>Project:</strong> Full CI/CD pipeline for web app
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-time">Weeks 11-12: Infrastructure as Code</div>
+                    <p>Terraform basics, CloudFormation/ARM templates, State management</p>
+                    <strong>Project:</strong> Provision entire infrastructure with Terraform
+                </div>
+            </div>
+
+            <h3>Certification Track</h3>
+            <div class="card">
+                <strong>Target: Month 3-4 Post-Ramadan</strong>
+                <p>Choose one:</p>
+                <ul>
+                    <li><span class="badge badge-primary">AWS</span> AWS Certified Solutions Architect Associate</li>
+                    <li><span class="badge badge-secondary">Azure</span> Microsoft Azure Administrator Associate (AZ-104)</li>
+                </ul>
+                <p><strong>Month 5-6:</strong> AWS Certified Developer Associate OR Terraform Associate</p>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Daily Schedule -->
+        <section id="schedule">
+            <h2>📅 Complete Daily Schedule</h2>
+
+            <div class="alert alert-info">
+                <strong>Sleep Schedule:</strong> 23:00 - 06:30 (7.5 hours)<br>
+                <strong>Eating Window:</strong> 17:50 - 22:30 (approx 5 hours)<br>
+                <strong>Fasting Duration:</strong> ~17 hours daily
+            </div>
+
+            <h3>Hour-by-Hour Daily Timeline</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">06:30-08:00 | SUHOOR & FAJR BLOCK</div>
+                    <div class="code-block">
+06:30 - Wake up, light stretching
+06:40 - Suhoor meal (690 kcal, 61g protein)
+07:10 - Finish eating, brush teeth
+07:15 - Fajr prayer
+07:20-07:45 - Quran (4 pages - NEVER SKIP) ✓
+07:45-08:00 - Quick dua, gratitude journal
+
+Decision Point:
+• Option A (High Energy): Continue to deep work
+• Option B (Need Rest): Return to sleep until 09:30
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">08:00-13:00 | MORNING DEEP WORK</div>
+                    <div class="code-block">
+08:00-11:00 - Deep Work Block 1
+  • Cloud fundamentals study
+  • Theory + documentation
+  • Video courses
+  • Note-taking
+
+11:00-11:15 - Break (stretch, water, bathroom)
+
+11:15-13:00 - Deep Work Block 2
+  • Hands-on labs
+  • Coding practice
+  • Project work
+  • Problem-solving
+                    </div>
+                    <span class="badge badge-success">Peak Productivity Window</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">13:00-16:00 | MIDDAY SPIRITUAL & REST</div>
+                    <div class="code-block">
+13:00 - Dhuhr prayer
+13:00-13:25 - Quran (4 pages) ✓
+13:25-13:30 - Transition
+
+13:30-15:00 - Strategic Options:
+  • Option A: 90min nap (if tired)
+  • Option B: Light study (tutorials/reading)
+  • Option C: Personal projects
+
+15:00 - Brief walk or stretching (5-10min)
+15:10 - Asr prayer
+16:00-16:25 - Quran (4 pages) ✓
+16:25-16:30 - Mental prep for training
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">16:30-18:00 | PRE-IFTAR TRAINING</div>
+                    <div class="code-block">
+16:30-16:45 - Training prep
+  • Change into workout clothes
+  • Light dynamic warm-up
+  • Mental visualization
+  • NO food/water (still fasting)
+
+16:45-17:45 - STRENGTH TRAINING (55-60min)
+  • Fasted workout protocol
+  • 3 sets per exercise
+  • Focus on form over weight
+  • Listen to body signals
+
+17:45-17:50 - Cool down, wait for Maghrib
+                    </div>
+                    <span class="badge badge-danger">High Intensity Fasted State</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">17:50-19:00 | IFTAR & RECOVERY</div>
+                    <div class="code-block">
+17:50 - Adhan Maghrib
+17:50 - Break fast: 3 dates + 500ml water (URGENT)
+17:52 - Maghrib prayer (5-7 min)
+
+18:00 - Return from prayer
+18:05 - Post-workout shake (40g whey + banana)
+18:15 - Additional 500ml water
+18:20-18:45 - Quran (4 pages - BEST focus of day) ✓
+18:45-19:00 - Prepare main meal OR rest
+                    </div>
+                    <span class="badge badge-warning">Critical Recovery Window</span>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">19:00-20:30 | EVENING MEAL & RECOVERY</div>
+                    <div class="code-block">
+19:00 - Main Iftar meal (680 kcal high-carb)
+19:30 - Rest, digest, light conversation
+20:00 - 500ml water
+20:15 - Isha prayer
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">20:30-22:30 | TARAWIH & EVENING WORSHIP</div>
+                    <div class="code-block">
+20:30 - Prepare for Tarawih
+20:45-22:00 - Tarawih prayer (20 rakats)
+  • Listen actively to Imam
+  • Track which Juz being recited
+  • Reinforces your daily reading
+
+22:00-22:25 - Quran (4 pages - complete daily 20!) ✓
+22:25-22:30 - Check: Did I hit 20 pages today?
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">22:30-23:00 | FINAL MEAL & TRACKING</div>
+                    <div class="code-block">
+22:30 - Light evening meal (280 kcal, 38g protein)
+22:40 - 500ml water (final hydration)
+22:45 - Evening tracking:
+  • Weight & nutrition log
+  • Training performance
+  • Learning hours
+  • Quran checklist (20 pages?)
+  • Tomorrow's intentions
+
+22:55 - Prepare clothes/materials
+23:00 - SLEEP (no screens, no phone)
+                    </div>
+                </div>
+            </div>
+
+            <h3>Weekly Schedule Overview</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Training</th>
+                        <th>Focus</th>
+                        <th>Special Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Sunday</td>
+                        <td>Upper Push</td>
+                        <td>Deep work + Training</td>
+                        <td>Week kickoff</td>
+                    </tr>
+                    <tr>
+                        <td>Monday</td>
+                        <td>Active Recovery</td>
+                        <td>Automation learning</td>
+                        <td>Light 30min walk</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>Lower Squat</td>
+                        <td>Deep work + Training</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>Complete Rest</td>
+                        <td>Extended spiritual focus</td>
+                        <td>Social time allowed</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>Upper Pull</td>
+                        <td>Deep work + Training</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>Rest/Flexible</td>
+                        <td>Jumu'ah + Light review</td>
+                        <td>Catch-up if behind</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday</td>
+                        <td>Lower Deadlift</td>
+                        <td>Deep work + Training</td>
+                        <td>Week review + planning</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Weekly Targets Checklist</h3>
+            <div class="checklist">
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>4 training sessions completed (Sunday, Tuesday, Thursday, Saturday)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>140 Quran pages (20/day × 7 days)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>20-25 hours deep work</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>35 prayers on time (5/day × 7 days)</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>1,960 kcal average daily</div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checkbox"></div>
+                    <div>200g+ protein daily average</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Tracking & Progress -->
+        <section id="tracking">
+            <h2>📊 Tracking & Progress System</h2>
+
+            <div class="alert alert-info">
+                <strong>Daily Tracking Time:</strong> 22:45 every evening (15 minutes)<br>
+                <strong>Weekly Review:</strong> Saturday evening (30 minutes)<br>
+                <strong>Monthly Assessment:</strong> Day 30 of Ramadan (60 minutes)
+            </div>
+
+            <h3>Daily Tracking Template</h3>
+            <div class="code-block">
+═══════════════════════════════════════════════════════
+DAILY COMMAND CENTER - Date: _________
+═══════════════════════════════════════════════════════
+
+📊 PHYSICAL TRACKING
+───────────────────────────────────────────────────────
+Morning Weight (fasted): _____ kg
+Yesterday vs Today: _____ kg
+
+Meals Consumed:
+☐ Suhoor - Protein: __g | Carbs: __g | Fat: __g | Cals: ____
+☐ Iftar Break - Cals: ____
+☐ Post-Workout Shake - Protein: __g | Cals: ____
+☐ Main Meal - Protein: __g | Carbs: __g | Fat: __g | Cals: ____
+☐ Evening Meal - Protein: __g | Carbs: __g | Fat: __g | Cals: ____
+
+DAILY TOTALS:
+Protein: ___g / 230g target (____%)
+Carbs: ___g
+Fat: ___g
+Calories: _____ / 1,960 target (____%)
+Water: ____ L / 4L target (____%)
+
+🏋️ TRAINING LOG
+───────────────────────────────────────────────────────
+Workout: □ Upper Push  □ Lower Squat  □ Upper Pull  
+         □ Lower Deadlift  □ Active Recovery  □ Rest
+
+Exercise 1: ____________ - __kg × __ reps × __ sets
+Exercise 2: ____________ - __kg × __ reps × __ sets
+Exercise 3: ____________ - __kg × __ reps × __ sets
+Exercise 4: ____________ - __kg × __ reps × __ sets
+Exercise 5: ____________ - __kg × __ reps × __ sets
+
+Energy Level (1-10): __
+Form Quality (1-10): __
+Strength vs Last Week: □ Same  □ Better  □ Worse
+Notes: _______________________________________
+
+📚 LEARNING PROGRESS
+───────────────────────────────────────────────────────
+Study Hours Today: ___ hours
+  • Deep Work: ___ hours
+  • Hands-on Labs: ___ hours
+  • Passive Learning: ___ hours
+
+Topics Covered:
+1. _______________________________________
+2. _______________________________________
+3. _______________________________________
+
+Hands-On Practice: □ Yes  □ No
+Project: _________________ - Progress: ___%
+
+Comprehension (1-10): __
+What I learned: _______________________________
+What I struggled with: _________________________
+Tomorrow's focus: _____________________________
+
+🕌 SPIRITUAL & WELLBEING
+───────────────────────────────────────────────────────
+Prayers:
+☐ Fajr on time   ☐ Dhuhr   ☐ Asr   ☐ Maghrib   ☐ Isha
+Tarawih: □ Yes  □ No
+
+Quran Progress:
+☐ After Fajr: Pages __-__ (4) ✓
+☐ After Dhuhr: Pages __-__ (4) ✓
+☐ After Asr: Pages __-__ (4) ✓
+☐ After Maghrib: Pages __-__ (4) ✓
+☐ After Isha: Pages __-__ (4) ✓
+
+Daily Total: __ / 20 pages ✓
+Running Total: ___ / 604 pages (___%)
+
+Energy: □ Low  □ Medium  □ High
+Hunger during fast: □ Low  □ Medium  □ High
+Mental clarity: □ Low  □ Medium  □ High
+Sleep quality: □ Poor  □ Average  □ Good  □ Excellent
+
+Mood: □ 😞  □ 😐  □ 🙂  □ 😊
+Gratitude: _____________________________________
+Dua made: _____________________________________
+
+═══════════════════════════════════════════════════════
+DAILY GRADE: Physical __ | Learning __ | Spiritual __
+TODAY WAS: □ A+ Day  □ Solid  □ Needs Improvement
+═══════════════════════════════════════════════════════
+            </div>
+
+            <h3>Weekly Review Template</h3>
+            <div class="code-block">
+═══════════════════════════════════════════════════════
+WEEKLY COMMAND CENTER - Week: __ of 4
+═══════════════════════════════════════════════════════
+
+📊 BODY COMPOSITION
+───────────────────────────────────────────────────────
+Week Start Weight: ___ kg
+Week End Weight: ___ kg
+Change: ___ kg (Goal: -0.75 to -1 kg)
+
+Compliance:
+• Hit protein target (220g+): __/7 days
+• Hit calorie target (1,800-2,000): __/7 days
+• Completed all workouts: __/4 planned
+• 4L water daily: __/7 days
+
+🏋️ TRAINING PERFORMANCE
+───────────────────────────────────────────────────────
+Upper Push Progress:
+• Bench Press: Previous __kg×__ → This week __kg×__
+• OHP: Previous __kg×__ → This week __kg×__
+
+Lower Squat Progress:
+• Squat: Previous __kg×__ → This week __kg×__
+• RDL: Previous __kg×__ → This week __kg×__
+
+Upper Pull Progress:
+• Row: Previous __kg×__ → This week __kg×__
+• Pull-ups: Previous __ reps → This week __ reps
+
+Lower Deadlift Progress:
+• Deadlift: Previous __kg×__ → This week __kg×__
+• Front Squat: Previous __kg×__ → This week __kg×__
+
+Overall: □ Strength maintained  □ Improved  □ Decreased
+
+📚 LEARNING ACHIEVEMENTS
+───────────────────────────────────────────────────────
+Total Study Hours: ___ hours (Target: 20-25h)
+Completed Modules/Courses: _______________________
+Hands-On Projects Completed: _____________________
+Certifications/Milestones: _______________________
+
+Key Skills Acquired:
+1. _______________________________________
+2. _______________________________________
+3. _______________________________________
+
+🕌 SPIRITUAL EXCELLENCE
+───────────────────────────────────────────────────────
+Prayers on time: ___/35 (5×7)
+Quran pages: ___/140 (20×7)
+Tarawih attendance: __/7 nights
+Fajr on time: __/7 days
+
+═══════════════════════════════════════════════════════
+NEXT WEEK ADJUSTMENTS
+───────────────────────────────────────────────────────
+Nutrition changes: ________________________________
+Training changes: _________________________________
+Schedule changes: _________________________________
+Learning focus: ___________________________________
+
+WEEKLY SCORE: __/90 possible points
+═══════════════════════════════════════════════════════
+            </div>
+
+            <h3>30-Day Success Metrics</h3>
+
+            <div class="grid-3">
+                <div class="card">
+                    <div class="card-header">💪 Physical Success</div>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Lost 3-4kg of fat</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Maintained strength within 10-15%</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Averaged 220g+ protein daily</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Completed 16/16 training sessions</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Zero injuries</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">📚 Learning Success</div>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>80-100 total study hours</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Completed all Week 1-4 modules</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Built 2+ deployed projects</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Certification exam-ready</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Active GitHub with commits</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">🕌 Spiritual Success</div>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Completed Quran (604 pages)</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>150/150 prayers on time</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Tarawih attendance 25+ nights</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Fajr on time every single day</div>
+                        </div>
+                        <div class="checklist-item">
+                            <div class="checkbox"></div>
+                            <div>Daily gratitude journal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Overall Discipline Score</h3>
+            <div class="card">
+                <strong>Total Possible Points: 90 (30 days × 3 goals)</strong>
+                <p>Your Score: ___ / 90</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Score Range</th>
+                            <th>Grade</th>
+                            <th>Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>85-90</td>
+                            <td><span class="badge badge-success">EXCEPTIONAL</span></td>
+                            <td>You absolutely crushed Ramadan</td>
+                        </tr>
+                        <tr>
+                            <td>75-84</td>
+                            <td><span class="badge badge-primary">EXCELLENT</span></td>
+                            <td>Strong performance across all domains</td>
+                        </tr>
+                        <tr>
+                            <td>65-74</td>
+                            <td><span class="badge badge-secondary">GOOD</span></td>
+                            <td>Solid effort, room for improvement</td>
+                        </tr>
+                        <tr>
+                            <td>55-64</td>
+                            <td><span class="badge badge-warning">ACCEPTABLE</span></td>
+                            <td>Hit some targets, missed others</td>
+                        </tr>
+                        <tr>
+                            <td>Below 55</td>
+                            <td><span class="badge badge-danger">RESET</span></td>
+                            <td>Analyze what went wrong, try again</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SECTION 8: Critical Reminders -->
+        <section id="reminders">
+            <h2>⚠️ Critical Reminders & Principles</h2>
+
+            <h3>Core Success Principles</h3>
+            <div class="grid-2">
+                <div class="alert alert-success">
+                    <strong>1. Discipline Over Motivation</strong>
+                    <p>Motivation fades after 3 days. Systems and discipline compound forever. Trust the process, not your feelings.</p>
+                </div>
+                <div class="alert alert-success">
+                    <strong>2. Minimum Viable Compliance</strong>
+                    <p>Hit 80% compliance = 90% of results. Perfection is the enemy of progress. Good enough is good enough.</p>
+                </div>
+                <div class="alert alert-success">
+                    <strong>3. Progress > Perfection</strong>
+                    <p>0.5kg fat loss = success. 150g protein instead of 230g = better than 100g. 30min study = better than 0min.</p>
+                </div>
+                <div class="alert alert-success">
+                    <strong>4. Spiritual First</strong>
+                    <p>If you must choose between Tarawih and an extra study hour, choose Tarawih. This happens once a year. Skills can be learned anytime.</p>
+                </div>
+            </div>
+
+            <h3>Safety Warnings</h3>
+            <div class="alert alert-danger">
+                <strong>🚨 SKIP TRAINING ENTIRELY IF:</strong>
+                <ul>
+                    <li>Severe headache in the morning (dehydration from previous day)</li>
+                    <li>Dizziness when standing up quickly</li>
+                    <li>Dark yellow urine (severe dehydration)</li>
+                    <li>Extreme fatigue (can't focus on work at all)</li>
+                    <li>Any illness or injury</li>
+                    <li>Less than 6 hours sleep previous night</li>
+                </ul>
+                <p><strong>On skip days:</strong> Do light 15min walk after Asr instead + extra Quran reading. This is NOT failure—it's intelligent training.</p>
+            </div>
+
+            <h3>Energy Management Strategies</h3>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-header">High Energy Days</div>
+                    <ul>
+                        <li>Prioritize heavy compound lifts</li>
+                        <li>Tackle complex learning concepts</li>
+                        <li>Longer deep work sessions (3+ hours)</li>
+                        <li>Push protein to 230g+ if possible</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-header">Low Energy Days</div>
+                    <ul>
+                        <li>Focus on technique/form training</li>
+                        <li>Review previous material (no new concepts)</li>
+                        <li>Watch tutorials (passive learning)</li>
+                        <li>Take extra rest/nap</li>
+                        <li>Minimum: hit protein target + prayers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Troubleshooting Guide</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Problem</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>"I'm too hungry to focus"</strong></td>
+                        <td>→ Increase fats at Suhoor (15g → 25g)<br>→ Move deep work to post-Iftar<br>→ Take strategic nap during peak hunger</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"I'm too tired to train"</strong></td>
+                        <td>→ Reduce volume by 20% (2 sets instead of 3)<br>→ Skip isolation exercises<br>→ Prioritize sleep over late-night activities</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"Not losing weight fast enough"</strong></td>
+                        <td>→ Check protein accuracy (weigh food)<br>→ Verify portion sizes<br>→ Ensure consistent 4 training days<br>→ Patience: muscle retention > rapid loss</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"Can't retain information"</strong></td>
+                        <td>→ Spaced repetition: Review previous day each morning<br>→ Active recall: Close laptop, explain concept out loud<br>→ Project-based: Build to reinforce theory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"Feeling weak in training"</strong></td>
+                        <td>→ Normal in deficit + fasting<br>→ Focus on maintaining, not PRs<br>→ Post-Ramadan will see strength rebound</td>
+                    </tr>
+                    <tr>
+                        <td><strong>"Behind on Quran pages"</strong></td>
+                        <td>→ Add 2 pages to next 2 prayer sessions<br>→ Dedicate Friday afternoon for catch-up<br>→ Never skip Fajr session (protect this)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>The Long-Term Vision</h3>
+            <div class="alert alert-info">
+                <p><strong>30 days is 4% of your year.</strong></p>
+                <p>But the habits you build during Ramadan will compound forever.</p>
+                <p>The discipline you forge will carry you through the remaining 335 days.</p>
+                <p>The spiritual connection you deepen will transform your entire year.</p>
+                <p><strong>This is not just about Ramadan. This is about becoming the person you're meant to be.</strong></p>
+            </div>
+        </section>
+
+        <!-- SECTION 9: Commitment Contract -->
+        <section id="contract">
+            <h2>📝 Your Commitment Contract</h2>
+
+            <div class="card" style="background: rgba(0, 168, 107, 0.1); border: 3px solid var(--primary);">
+                <div class="code-block" style="font-size: 1.1rem; line-height: 2;">
+I, _________________, commit to the following for 30 days:
+
+<strong style="color: var(--primary);">PHYSICAL EXCELLENCE:</strong>
+☐ 1,960 kcal daily
+☐ 200g+ protein daily  
+☐ Fasted training 4x/week (Sunday, Tuesday, Thursday, Saturday)
+☐ 4L water daily (evening hours)
+☐ 16 total training sessions
+
+<strong style="color: var(--secondary);">LEARNING EXCELLENCE:</strong>
+☐ 20-25 hours deep work weekly
+☐ Complete Week 1-4 Cloud fundamentals
+☐ Build 2+ functional projects
+☐ Pass practice certification exam
+
+<strong style="color: var(--success);">SPIRITUAL EXCELLENCE:</strong>
+☐ Complete Quran (604 pages / 30 days = 20 pages daily)
+☐ 4 pages after each of 5 prayers daily
+☐ All prayers on time (150 total in 30 days)
+☐ Tarawih attendance (aim for 25+ nights)
+☐ Daily gratitude journal
+
+<strong style="color: var(--accent);">I UNDERSTAND THAT:</strong>
+• Fasted training requires extra caution and hydration
+• Quran completion needs consistency more than speed
+• Missing 1 day doesn't mean failure - just catch up
+• Discipline beats motivation every time
+• 80% compliance = 90% of results
+• This is about becoming, not just achieving
+
+<strong>Start Weight:</strong> 115 kg
+<strong>Target Weight:</strong> 111 kg
+<strong>Start Date:</strong> [Day 1 of Ramadan]
+<strong>End Date:</strong> [Day 30 of Ramadan]
+
+Signature: ________________
+Date: ________________
+
+Witness/Accountability Partner: ________________
+                </div>
+            </div>
+
+            <div class="alert alert-success" style="margin-top: 2rem; text-align: center; font-size: 1.3rem;">
+                <strong>You have everything you need.</strong><br>
+                The blueprint is complete.<br>
+                The system is built.<br>
+                Now close this page and START EXECUTING.<br><br>
+                <strong style="font-size: 1.5rem;">Ramadan Mubarak. May Allah grant you success in dunya and akhirah. 🤲</strong>
+            </div>
+        </section>
+
+        <!-- Print Button -->
+        <button class="print-btn" onclick="window.print()">🖨️ Print Full System</button>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+    
+    <script>
+        // Firebase Configuration (YOUR EXISTING CONFIG)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDfWzuQJ0Q8k1ozwKCM8HJg8CWKQdgbMqk",
+            authDomain: "daily-accountability-website.firebaseapp.com",
+            databaseURL: "https://daily-accountability-website-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "daily-accountability-website",
+            storageBucket: "daily-accountability-website.firebasestorage.app",
+            messagingSenderId: "233412028175",
+            appId: "1:233412028175:web:77a0b5a980167b35aa807a"
+        };
+        
+        // Initialize Firebase
+        let database = null;
+        let userId = null;
+        let firebaseInitialized = false;
+        
+        try {
+            firebase.initializeApp(firebaseConfig);
+            database = firebase.database();
+            
+            // Get or create unique user ID for Ramadan tracker
+            userId = localStorage.getItem('ramadanUserId');
+            if (!userId) {
+                userId = 'ramadan_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+                localStorage.setItem('ramadanUserId', userId);
+            }
+            
+            firebaseInitialized = true;
+            console.log('🔥 Firebase initialized successfully with user ID:', userId);
+            updateSyncStatus('synced');
+        } catch (error) {
+            console.log('Firebase initialization failed:', error);
+            firebaseInitialized = false;
+            updateSyncStatus('local');
+        }
+        
+        // Firebase sync functions
+        async function saveToFirebase(key, value) {
+            // Always save to local storage first (immediate)
+            localStorage.setItem(key, JSON.stringify(value));
+            
+            // Then sync to Firebase
+            if (firebaseInitialized && database && userId) {
+                try {
+                    await database.ref(`ramadan/${userId}/${key}`).set(value);
+                    updateSyncStatus('synced');
+                    console.log(`✓ Synced ${key} to Firebase`);
+                } catch (error) {
+                    console.log('Firebase save failed:', error);
+                    updateSyncStatus('error');
+                }
+            }
+        }
+        
+        async function loadFromFirebase(key) {
+            if (firebaseInitialized && database && userId) {
+                try {
+                    const snapshot = await database.ref(`ramadan/${userId}/${key}`).once('value');
+                    const value = snapshot.val();
+                    
+                    if (value !== null) {
+                        localStorage.setItem(key, JSON.stringify(value));
+                        return value;
+                    }
+                } catch (error) {
+                    console.log('Firebase load failed:', error);
+                }
+            }
+            
+            // Fallback to local storage
+            const localValue = localStorage.getItem(key);
+            return localValue ? JSON.parse(localValue) : null;
+        }
+        
+        async function syncAllFromFirebase() {
+            if (!firebaseInitialized) {
+                updateSyncStatus('local');
+                return;
+            }
+            
+            try {
+                updateSyncStatus('syncing');
+                
+                const snapshot = await database.ref(`ramadan/${userId}`).once('value');
+                const cloudData = snapshot.val();
+                
+                if (cloudData) {
+                    Object.keys(cloudData).forEach(key => {
+                        localStorage.setItem(key, JSON.stringify(cloudData[key]));
+                    });
+                    console.log('✓ Synced all data from Firebase');
+                }
+                
+                updateSyncStatus('synced');
+            } catch (error) {
+                console.log('Sync failed:', error);
+                updateSyncStatus('error');
+            }
+        }
+        
+        function updateSyncStatus(status) {
+            const statusBadge = document.querySelector('.stats-badge.sync-status');
+            if (!statusBadge) return;
+            
+            switch(status) {
+                case 'synced':
+                    statusBadge.innerHTML = '<strong>☁️ Synced Across Devices</strong>';
+                    statusBadge.style.background = 'rgba(78, 205, 196, 0.2)';
+                    statusBadge.style.borderColor = 'var(--success)';
+                    break;
+                case 'syncing':
+                    statusBadge.innerHTML = '<strong>🔄 Syncing...</strong>';
+                    statusBadge.style.background = 'rgba(0, 168, 107, 0.2)';
+                    break;
+                case 'local':
+                    statusBadge.innerHTML = '<strong>💾 Local Storage Only</strong>';
+                    statusBadge.style.background = 'rgba(255, 200, 87, 0.2)';
+                    statusBadge.style.borderColor = 'var(--warning)';
+                    break;
+                case 'error':
+                    statusBadge.innerHTML = '<strong>⚠️ Sync Error</strong>';
+                    statusBadge.style.background = 'rgba(230, 57, 70, 0.2)';
+                    statusBadge.style.borderColor = 'var(--accent)';
+                    break;
+            }
+        }
+        
+        // Initialize sync on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            await syncAllFromFirebase();
+            loadAllProgress();
+        });
+        
+        // Auto-save functions for interactive elements
+        function saveProgress(category, data) {
+            const key = `ramadan_${category}_${new Date().toISOString().split('T')[0]}`;
+            saveToFirebase(key, data);
+        }
+        
+        function loadAllProgress() {
+            // Load today's progress
+            const today = new Date().toISOString().split('T')[0];
+            const keys = [
+                `ramadan_daily_${today}`,
+                `ramadan_weekly_${getWeekNumber()}`,
+                `ramadan_overall`
+            ];
+            
+            keys.forEach(async key => {
+                const data = await loadFromFirebase(key);
+                if (data) {
+                    console.log(`Loaded ${key}:`, data);
+                }
+            });
+        }
+        
+        function getWeekNumber() {
+            const today = new Date();
+            const firstDay = new Date(today.getFullYear(), 0, 1);
+            const days = Math.floor((today - firstDay) / (24 * 60 * 60 * 1000));
+            return Math.ceil((days + firstDay.getDay() + 1) / 7);
+        }
+        
+        // Interactive Tracking Features
+        
+        // Make checkboxes actually work and sync
+        function initializeCheckboxes() {
+            document.querySelectorAll('.checklist-item').forEach(item => {
+                item.style.cursor = 'pointer';
+                item.addEventListener('click', async function(e) {
+                    e.stopPropagation();
+                    this.classList.toggle('checked');
+                    
+                    const checkbox = this.querySelector('.checkbox');
+                    if (this.classList.contains('checked')) {
+                        checkbox.innerHTML = '✓';
+                        checkbox.style.background = 'var(--success)';
+                        checkbox.style.borderColor = 'var(--success)';
+                        this.style.opacity = '0.7';
+                    } else {
+                        checkbox.innerHTML = '';
+                        checkbox.style.background = 'transparent';
+                        checkbox.style.borderColor = 'var(--primary)';
+                        this.style.opacity = '1';
+                    }
+                    
+                    // Save to Firebase
+                    await saveChecklistState();
+                });
+            });
+        }
+        
+        async function saveChecklistState() {
+            const today = new Date().toISOString().split('T')[0];
+            const checklistState = {};
+            
+            document.querySelectorAll('.checklist-item').forEach((item, index) => {
+                checklistState[`item_${index}`] = item.classList.contains('checked');
+            });
+            
+            await saveToFirebase(`checklist_${today}`, checklistState);
+            updateCompletionStats();
+        }
+        
+        async function loadChecklistState() {
+            const today = new Date().toISOString().split('T')[0];
+            const checklistState = await loadFromFirebase(`checklist_${today}`);
+            
+            if (checklistState) {
+                document.querySelectorAll('.checklist-item').forEach((item, index) => {
+                    if (checklistState[`item_${index}`]) {
+                        item.classList.add('checked');
+                        const checkbox = item.querySelector('.checkbox');
+                        checkbox.innerHTML = '✓';
+                        checkbox.style.background = 'var(--success)';
+                        checkbox.style.borderColor = 'var(--success)';
+                        item.style.opacity = '0.7';
+                    }
+                });
+            }
+        }
+        
+        function updateCompletionStats() {
+            const total = document.querySelectorAll('.checklist-item').length;
+            const completed = document.querySelectorAll('.checklist-item.checked').length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            // Update any stat displays
+            console.log(`Progress: ${completed}/${total} (${percentage}%)`);
+        }
+        
+        // Quick Daily Tracker
+        function createQuickTracker() {
+            const tracker = document.createElement('div');
+            tracker.id = 'quickTracker';
+            tracker.style.cssText = `
+                position: fixed;
+                bottom: 5rem;
+                right: 2rem;
+                background: rgba(10, 17, 40, 0.95);
+                border: 2px solid var(--primary);
+                border-radius: 15px;
+                padding: 1.5rem;
+                min-width: 300px;
+                box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                backdrop-filter: blur(10px);
+            `;
+            
+            tracker.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <strong style="color: var(--primary); font-size: 1.2rem;">Quick Daily Log</strong>
+                    <button onclick="toggleQuickTracker()" style="background: none; border: none; color: var(--light); cursor: pointer; font-size: 1.5rem;">×</button>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--secondary);">Weight (kg):</label>
+                    <input type="number" id="dailyWeight" step="0.1" style="width: 100%; padding: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 5px; color: var(--light);">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--secondary);">Protein (g):</label>
+                    <input type="number" id="dailyProtein" style="width: 100%; padding: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 5px; color: var(--light);">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--secondary);">Quran Pages:</label>
+                    <input type="number" id="dailyQuran" max="20" style="width: 100%; padding: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 5px; color: var(--light);">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--secondary);">Study Hours:</label>
+                    <input type="number" id="dailyStudy" step="0.5" style="width: 100%; padding: 0.5rem; background: rgba(255,255,255,0.1); border: 1px solid var(--border); border-radius: 5px; color: var(--light);">
+                </div>
+                <button onclick="saveDailyLog()" style="width: 100%; padding: 0.75rem; background: var(--primary); color: var(--darker); border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s;">
+                    💾 Save to Cloud
+                </button>
+                <div id="saveStatus" style="margin-top: 0.5rem; text-align: center; color: var(--success); font-size: 0.9rem;"></div>
+            `;
+            
+            document.body.appendChild(tracker);
+            loadDailyLog();
+        }
+        
+        function toggleQuickTracker() {
+            const tracker = document.getElementById('quickTracker');
+            if (tracker) {
+                tracker.style.display = tracker.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+        
+        async function saveDailyLog() {
+            const today = new Date().toISOString().split('T')[0];
+            const data = {
+                date: today,
+                weight: parseFloat(document.getElementById('dailyWeight').value) || 0,
+                protein: parseInt(document.getElementById('dailyProtein').value) || 0,
+                quranPages: parseInt(document.getElementById('dailyQuran').value) || 0,
+                studyHours: parseFloat(document.getElementById('dailyStudy').value) || 0,
+                timestamp: Date.now()
+            };
+            
+            await saveToFirebase(`daily_${today}`, data);
+            
+            const status = document.getElementById('saveStatus');
+            status.textContent = '✓ Saved successfully!';
+            setTimeout(() => status.textContent = '', 2000);
+        }
+        
+        async function loadDailyLog() {
+            const today = new Date().toISOString().split('T')[0];
+            const data = await loadFromFirebase(`daily_${today}`);
+            
+            if (data) {
+                document.getElementById('dailyWeight').value = data.weight || '';
+                document.getElementById('dailyProtein').value = data.protein || '';
+                document.getElementById('dailyQuran').value = data.quranPages || '';
+                document.getElementById('dailyStudy').value = data.studyHours || '';
+            }
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', async function() {
+            await syncAllFromFirebase();
+            loadAllProgress();
+            initializeCheckboxes();
+            await loadChecklistState();
+            createQuickTracker();
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Progress bar animation on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeIn 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add fade-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
